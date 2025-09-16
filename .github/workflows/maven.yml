@@ -67,12 +67,15 @@ jobs:
           username: ${{ vars.USERNAME }}
           key: ${{ secrets.KEY }}
           script: |
-            cd springboot-app
-            echo "Deploy was able to naviagate to the app folder"
-            pkill -f 'java -jar' || true
-            echo "Deploy got to the point of killing existing server app"
-            nohup java -jar *.jar > app.log 2>&1 &
-            echo "Deploy went past nohookup"
-            exit 0
+             cd springboot-app
+             echo "✅ Navigated to app folder"
+
+             # Stop old process if running
+             pkill -f 'java -jar' || true
+             echo "🛑 Stopped old app"
+
+             # Start new process completely detached
+             setsid java -jar *.jar > app.log 2>&1 &
+             echo "🚀 New app started (check app.log for logs)"
      
      
