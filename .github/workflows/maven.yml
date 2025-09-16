@@ -75,7 +75,7 @@ jobs:
              echo "🛑 Stopped old app"
 
              # Start new process completely detached
-             setsid java -jar *.jar > app.log 2>&1 &
+             nohup setsid java -jar *.jar > app.log 2>&1 &
              echo "🚀 New app started (check app.log for logs)"
      
      
