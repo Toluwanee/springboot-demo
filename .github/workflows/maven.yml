@@ -70,5 +70,6 @@ jobs:
             cd springboot-app
             pkill -f 'java -jar' || true
             nohup java -jar *.jar > app.log 2>&1 &
+            exit 0
      
      
