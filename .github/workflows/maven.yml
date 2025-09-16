@@ -67,23 +67,10 @@ jobs:
           username: ${{ vars.USERNAME }}
           key: ${{ secrets.KEY }}
           script: |
-<<<<<<< HEAD
-             cd springboot-app
-             echo "✅ Navigated to app folder"
-
-             # Stop old process if running
-             pkill -f 'java -jar' || true
-             echo "🛑 Stopped old app"
-
-             # Start new process completely detached
-             nohup setsid java -jar *.jar > app.log 2>&1 &
-             echo "🚀 New app started (check app.log for logs)"
-=======
             cd springboot-app
             pkill -f 'java -jar' || true
             nohup java -jar *.jar > app.log 2>&1 &
             
             sleep 5
->>>>>>> d68ac24 (added sleep 5s)
      
      
