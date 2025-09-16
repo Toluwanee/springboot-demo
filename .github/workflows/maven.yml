@@ -40,7 +40,7 @@ jobs:
       - name: Download JAR artifact
         uses: actions/download-artifact@v4
         with:
-          name: springboot-app
+          name: springboot-demo
     
       # Deploy via SCP
       - name: Copy artifact to server
@@ -50,7 +50,7 @@ jobs:
           username: ${{ vars.USERNAME }}
           key: ${{ secrets.KEY }}
           source: "*.jar"
-          target: "/home/${{ vars.USERNAME }}/springboot-app/"
+          target: "/home/${{ vars.USERNAME }}/springboot-demo/"
           
       # SSH into server & restart app
       - name: Execute remote SSH commands using SSH key
@@ -60,7 +60,7 @@ jobs:
           username: ${{ vars.USERNAME }}
           key: ${{ secrets.KEY }}
           script: |
-            cd springboot-app
+            cd springboot-demo
             pkill -f 'java -jar' || true
             java -jar *.jar > app.log 2>&1 &
      
