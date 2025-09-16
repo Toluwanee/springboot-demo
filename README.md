@@ -7,7 +7,7 @@ git clone
 
 mvn clean package -DskipTests -U
 
-to build the jar file
+to build the jar file first.
 
 
 Ensure you are in the folder where you can see the pom.xml folder when you run 'ls' command. (Do not navigate to the folder)
