@@ -69,6 +69,6 @@ jobs:
           script: |
             cd springboot-app
             pkill -f 'java -jar' || true
-            java -jar *.jar > app.log 2>&1 &
+            nohup java -jar *.jar > app.log 2>&1 &
      
      
