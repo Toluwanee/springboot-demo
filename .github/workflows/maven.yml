@@ -29,4 +29,39 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+      
+      
+  deploy:
+
+    runs-on: ubuntu-latest
+    needs: build 
+    
+    steps:
+      - name: Download JAR artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: springboot-app
+    
+      # Deploy via SCP
+      - name: Copy artifact to server
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ vars.HOST }}
+          username: ${{ vars.USERNAME }}
+          key: ${{ secrets.KEY }}
+          source: "*.jar"
+          target: "/home/${{ vars.USERNAME }}/springboot-app/"
+          
+      # SSH into server & restart app
+      - name: Execute remote SSH commands using SSH key
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ vars.HOST }}
+          username: ${{ vars.USERNAME }}
+          key: ${{ secrets.KEY }}
+          script: |
+            cd springboot-app
+            pkill -f 'java -jar' || true
+            java -jar *.jar > app.log 2>&1 &
+     
      
